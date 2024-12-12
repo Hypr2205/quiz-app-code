@@ -155,15 +155,15 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
 
       - name: Build image
-        run: docker build -t quiz/frontend:local .
+        run: docker build -t quiz/frontend:${{ github-sha }} .
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.28.0
         with:
-          image-ref: "quiz/frontend:local"
+          scan-type: "image"
+          image-ref: "quiz/frontend:${{ github-sha }}"
           format: sarif
           output: frontend-image-scan.sarif
-          exit-code: "1"
           severity: "CRITICAL,HIGH"
 
       - name: Upload result to GitHub Code Scanning
@@ -206,15 +206,15 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
 
       - name: Build image
-        run: docker build -t quiz/backend:local .
+        run: docker build -t quiz/backend:${{ github-sha }} .
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.28.0
         with:
-          image-ref: "quiz/backend:local"
+          scan-type: "image"
+          image-ref: "quiz/backend:${{ github-sha }}"
           format: sarif
           output: backend-image-scan.sarif
-          exit-code: "1"
           severity: "CRITICAL,HIGH"
 
       - name: Upload result to GitHub Code Scanning
