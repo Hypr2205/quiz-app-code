@@ -116,7 +116,7 @@ jobs:
           sarif_file: frontend-code-sec.sarif
 
   backend-code-security:
-    needs: backend-code-security
+    needs: backend-code-quality
     runs-on: ubuntu-latest
     defaults:
       run:
