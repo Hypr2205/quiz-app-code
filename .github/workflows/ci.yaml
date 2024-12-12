@@ -12,7 +12,7 @@ env:
 
 jobs:
   frontend-code-quality:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     defaults:
       run:
         working-directory: ./quiz-app
@@ -45,7 +45,7 @@ jobs:
             -Dsonar.verbose=true
 
   backend-code-quality:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     defaults:
       run:
         working-directory: ./backend
@@ -79,7 +79,7 @@ jobs:
 
   frontend-code-security:
     needs: frontend-code-quality
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     defaults:
       run:
         working-directory: ./quiz-app
@@ -105,7 +105,7 @@ jobs:
 
   backend-code-security:
     needs: backend-code-quality
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     defaults:
       run:
         working-directory: ./backend
