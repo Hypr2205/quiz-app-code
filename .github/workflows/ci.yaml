@@ -1,4 +1,4 @@
-name: CI
+name: Fullstack app CI pipeline
 
 on:
   push:
