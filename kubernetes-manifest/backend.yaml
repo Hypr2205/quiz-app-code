@@ -2,11 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend
-  namespace: quiz
+  namespace: app
   labels:
     app: backend
 spec:
-  replicas: 1
+  replicas: 3
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -21,27 +21,31 @@ spec:
         app: backend
     spec:
       containers:
-      - name: backend
-        image: ogochukwuozotta/backend-api:latest
-        ports:
-        - containerPort: 3000
-        env:
-        - name: MONGO_URI
-          valueFrom:
-            secretKeyRef:
-              name: mongo-secret
-              key: mongo-uri
+        - name: backend
+          image: 381492023411.dkr.ecr.ap-southeast-1.amazonaws.com/workshop/backend:7ba8adfe6133eb04cf63e50073e91852d2fe8eda
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+          ports:
+            - containerPort: 3000
+          env:
+            - name: MONGODB_URI
+              value: mongodb://mongo-service:27017/quests
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: backend-service
-  namespace: quiz
+  namespace: app
 spec:
   selector:
     app: backend
   ports:
-  - port: 3000
-    protocol: TCP
+    - port: 3000
+      protocol: TCP
+      targetPort: 3000
   type: ClusterIP
-  
