@@ -23,13 +23,6 @@ spec:
       containers:
         - name: backend
           image: 381492023411.dkr.ecr.ap-southeast-1.amazonaws.com/workshop/backend:13ec0a28de297a836964038431b8e6b939145de0
-          resources:
-            limits:
-              memory: "256Mi"
-              cpu: "500m"
-            requests:
-              memory: "128Mi"
-              cpu: "250m"
           ports:
             - containerPort: 3000
           env:
